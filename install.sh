@@ -88,8 +88,8 @@ fi
 # ─────────────────────────────────────────────
 section "Adding commands..."
 mkdir -p .local/bin
-download bin/omaterm-use-ssh-keys >"$HOME/.local/bin/omaterm-use-ssh-keys"
-chmod +x "$HOME/.local/bin/omaterm-use-ssh-keys"
+download bin/omaterm-use-ssh-key >"$HOME/.local/bin/omaterm-use-ssh-key"
+chmod +x "$HOME/.local/bin/omaterm-use-ssh-key"
 
 # ─────────────────────────────────────────────
 # Mise tooling
