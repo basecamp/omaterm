@@ -62,10 +62,19 @@ yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 echo
 echo "==> Configuring git..."
 
-# Get user info via gum
-echo
-GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git user name: " </dev/tty)
-GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
+# Get user info via gum (only if not already set)
+GIT_NAME=$(git config --global user.name 2>/dev/null || true)
+GIT_EMAIL=$(git config --global user.email 2>/dev/null || true)
+
+if [ -z "$GIT_NAME" ] || [ -z "$GIT_EMAIL" ]; then
+  echo
+  if [ -z "$GIT_NAME" ]; then
+    GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git user name: " </dev/tty)
+  fi
+  if [ -z "$GIT_EMAIL" ]; then
+    GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
+  fi
+fi
 
 cat >"$HOME/.gitconfig" <<GITCONFIG
 [user]
