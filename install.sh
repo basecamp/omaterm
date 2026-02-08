@@ -106,6 +106,12 @@ sudo systemctl enable --now docker.service
 sudo systemctl enable --now sshd.service
 sudo systemctl enable --now tailscaled.service
 
+# Enable serial console in Proxmox VMs (for xterm.js console access)
+if [[ -r /sys/class/dmi/id/sys_vendor ]] && grep -q "Proxmox" /sys/class/dmi/id/sys_vendor 2>/dev/null; then
+  sudo systemctl enable --now serial-getty@ttyS0.service
+  echo "Enabled serial access for xterm.js consoles (remember to add serial port via Hardware > Add > Serial Port)"
+fi
+
 # ─────────────────────────────────────────────
 # Setup Docker group to allow sudo-less access
 # ─────────────────────────────────────────────
