@@ -1,42 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Add SSH public keys for remote access and optionally disable password auth
+# Add SSH public key for remote access
+# https://github.com/basecamp/omaterm
 
-if gum confirm "Add SSH public key(s) for remote access?"; then
+if [[ -f "$HOME/.ssh/authorized_keys" ]] && grep -q "^" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
+  echo "SSH authorized_keys exists. Use omaterm-add-ssh-key to add more."
+  exit 0
+fi
+
+if gum confirm "Add SSH public key for remote access?"; then
   mkdir -p "$HOME/.ssh"
   chmod 700 "$HOME/.ssh"
 
-  echo "Paste your SSH public key(s) below (one per line, blank line when done):"
+  SSH_KEY=$(gum input --placeholder "ssh-ed25519 AAAAC3..." --prompt "SSH key: ")
 
-  KEYS_ADDED=0
-  while IFS= read -r key; do
-    [[ -z $key ]] && break
+  if [[ -z "$SSH_KEY" ]]; then
+    echo "No key provided, skipping"
+    exit 0
+  fi
 
-    # Check if key already exists
-    if [[ -f "$HOME/.ssh/authorized_keys" ]] && grep -qF "$key" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
-      echo "  Skipping (already exists): ${key:0:50}..."
-    else
-      echo "$key" >>"$HOME/.ssh/authorized_keys"
-      echo "  Added: ${key:0:50}..."
-      ((KEYS_ADDED++))
-    fi
-  done
+  echo "$SSH_KEY" >"$HOME/.ssh/authorized_keys"
+  chmod 600 "$HOME/.ssh/authorized_keys"
+  echo "SSH key added to authorized_keys"
 
-  if [[ $KEYS_ADDED -gt 0 ]]; then
-    chmod 600 "$HOME/.ssh/authorized_keys"
-    echo "Added $KEYS_ADDED new key(s) to authorized_keys"
-
-    # Only offer to disable password auth if not already disabled
-    if ! grep -q "^PasswordAuthentication no" /etc/ssh/sshd_config 2>/dev/null; then
-      if gum confirm "Disable password authentication for SSH (key-based auth only)?"; then
-        sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
-        sudo sed -i 's/^#*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
-        sudo systemctl restart sshd.service
-        echo "SSH configured for key-based authentication only"
-      fi
-    fi
-  else
-    echo "No new keys added"
+  if gum confirm "Disable password authentication for SSH (key-based auth only)?"; then
+    sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+    sudo sed -i 's/^#*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+    sudo systemctl restart sshd.service
+    echo "SSH configured for key-based authentication only"
   fi
 fi
