@@ -61,7 +61,7 @@ if [ ! -f "$HOME/.gitconfig" ]; then
   echo "==> Configuring git..."
   echo
 
-  GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git user name: " </dev/tty)
+  GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git name: " </dev/tty)
   GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
 
   cat >"$HOME/.gitconfig" <<GITCONFIG
