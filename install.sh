@@ -23,13 +23,10 @@ OFFICIAL_PKGS=(
   starship fzf eza zoxide tmux btop jq gum tldr
 
   # Editors & dev tools
-  vim neovim luarocks clang llvm rust mise github-cli lazygit lazydocker opencode
+  vim neovim luarocks clang llvm rust mise github-cli lazygit lazydocker opencode libyaml
 
   # Docker
   docker docker-buildx docker-compose
-
-  # Media & image processing
-  ffmpeg imagemagick libheif libvips libyaml openslide poppler-glib mupdf-tools rav1e svt-av1
 
   # Networking
   tailscale
