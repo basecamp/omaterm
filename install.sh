@@ -66,9 +66,6 @@ if ! groups | grep -q docker; then
   echo "    Added $USER to docker group (re-login to take effect)"
 fi
 
-# Add this node to tailscale network
-sudo tailscale up --ssh --accept-routes
-
 # ─────────────────────────────────────────────
 # Git config
 # ─────────────────────────────────────────────
@@ -227,6 +224,13 @@ MISE
 
 echo "==> Setup LazyVim..."
 git clone https://github.com/LazyVim/starter ~/.config/nvim
+
+# ─────────────────────────────────────────────
+# Tailscale
+# ─────────────────────────────────────────────
+if gum confirm "Connect to Tailscale network?"; then
+  sudo tailscale up --ssh --accept-routes
+fi
 
 # ─────────────────────────────────────────────
 # Post-install steps
