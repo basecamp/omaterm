@@ -128,6 +128,7 @@ if gum confirm "Authenticate with GitHub?" </dev/tty; then
   gh auth login
 fi
 
+echo
 if gum confirm "Connect to Tailscale network?" </dev/tty; then
   echo "This might take a minute..."
   sudo tailscale up --ssh --accept-routes
