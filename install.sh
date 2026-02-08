@@ -59,24 +59,15 @@ yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 # ─────────────────────────────────────────────
 # Git config
 # ─────────────────────────────────────────────
-echo
-echo "==> Configuring git..."
-
-# Get user info via gum (only if not already set)
-GIT_NAME=$(git config --global user.name 2>/dev/null || true)
-GIT_EMAIL=$(git config --global user.email 2>/dev/null || true)
-
-if [ -z "$GIT_NAME" ] || [ -z "$GIT_EMAIL" ]; then
+if [ ! -f "$HOME/.gitconfig" ]; then
   echo
-  if [ -z "$GIT_NAME" ]; then
-    GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git user name: " </dev/tty)
-  fi
-  if [ -z "$GIT_EMAIL" ]; then
-    GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
-  fi
-fi
+  echo "==> Configuring git..."
+  echo
 
-cat >"$HOME/.gitconfig" <<GITCONFIG
+  GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git user name: " </dev/tty)
+  GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
+
+  cat >"$HOME/.gitconfig" <<GITCONFIG
 [user]
 	name = ${GIT_NAME}
 	email = ${GIT_EMAIL}
@@ -115,6 +106,7 @@ cat >"$HOME/.gitconfig" <<GITCONFIG
 	enabled = true
 	autoupdate = true
 GITCONFIG
+fi
 
 # ─────────────────────────────────────────────
 # Shell config
