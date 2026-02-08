@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "Run locally: ssh -L 9223:127.0.0.1:9222 $(tailscale ip -4)"
+echo "Then add localhost:9223 under chrome://inspect"
+chromium --headless --remote-debugging-port=9222 "https://google.com"
