@@ -54,20 +54,6 @@ echo "==> Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 
 # ─────────────────────────────────────────────
-# Enable systemd services
-# ─────────────────────────────────────────────
-echo "==> Enabling services..."
-sudo systemctl enable --now docker.service
-sudo systemctl enable --now sshd.service
-sudo systemctl enable --now tailscaled.service
-
-# Add user to docker group
-if ! groups | grep -q docker; then
-  sudo usermod -aG docker "$USER"
-  echo "    Added $USER to docker group (re-login to take effect)"
-fi
-
-# ─────────────────────────────────────────────
 # Git config
 # ─────────────────────────────────────────────
 echo "==> Configuring git..."
@@ -223,6 +209,20 @@ MISE
 
 echo "==> Setup LazyVim..."
 git clone https://github.com/LazyVim/starter ~/.config/nvim
+
+# ─────────────────────────────────────────────
+# Enable systemd services
+# ─────────────────────────────────────────────
+echo "==> Enabling services..."
+sudo systemctl enable --now docker.service
+sudo systemctl enable --now sshd.service
+sudo systemctl enable --now tailscaled.service
+
+# Add user to docker group
+if ! groups | grep -q docker; then
+  sudo usermod -aG docker "$USER"
+  echo "    Added $USER to docker group (re-login to take effect)"
+fi
 
 # ─────────────────────────────────────────────
 # Interactive setup
