@@ -28,9 +28,12 @@ section() {
 OFFICIAL_PKGS=(
   base-devel git openssh sudo less inetutils whois
   starship fzf eza zoxide tmux btop jq gum tldr
-  vim neovim luarocks clang llvm rust mise github-cli lazygit lazydocker opencode libyaml
+  vim neovim luarocks
+  clang llvm rust mise libyaml
+  github-cli lazygit lazydocker opencode
   docker docker-buildx docker-compose
   tailscale
+  chromium
 )
 
 AUR_PKGS=(
