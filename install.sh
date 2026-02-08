@@ -92,7 +92,8 @@ fi
 section "Adding commands..."
 mkdir -p .local/bin
 download bin/omaterm-use-ssh-key >"$HOME/.local/bin/omaterm-use-ssh-key"
-chmod +x "$HOME/.local/bin/omaterm-use-ssh-key"
+download bin/omaterm-ts-chromium >"$HOME/.local/bin/omaterm-ts-chromium"
+chmod +x $HOME/.local/bin/*
 
 # ─────────────────────────────────────────────
 # Mise tooling
