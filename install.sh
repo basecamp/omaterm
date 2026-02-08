@@ -123,6 +123,7 @@ fi
 # ─────────────────────────────────────────────
 # Interactive setup
 # ─────────────────────────────────────────────
+echo
 if gum confirm "Authenticate with GitHub?" </dev/tty; then
   gh auth login
 fi
