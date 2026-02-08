@@ -87,6 +87,7 @@ fi
 # Bins
 # ─────────────────────────────────────────────
 section "Adding commands..."
+mkdir -p .local/bin
 download bin/omaterm-use-ssh-keys >"$HOME/.local/bin/omaterm-use-ssh-keys"
 chmod +x "$HOME/.local/bin/omaterm-use-ssh-keys"
 
