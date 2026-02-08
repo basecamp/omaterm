@@ -36,7 +36,7 @@ OFFICIAL_PKGS=(
 )
 
 echo "==> Installing Arch packages..."
-sudo pacman -S --needed --noconfirm "${OFFICIAL_PKGS[@]}"
+sudo pacman -Syu --needed --noconfirm "${OFFICIAL_PKGS[@]}"
 
 if ! command -v yay &>/dev/null; then
   echo "==> Installing yay..."
