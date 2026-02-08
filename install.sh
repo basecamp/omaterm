@@ -232,6 +232,4 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 # Post-install steps
 # ─────────────────────────────────────────────
 echo ""
-echo "==> Setup complete! Manual steps remaining:"
-echo "    1. Run 'gh auth login' to authenticate GitHub CLI"
-echo "    2. Re-login for docker group membership to take effect"
+echo "==> Setup complete! Re-login for Docker setup to take effect."
