@@ -19,6 +19,12 @@ download() {
   curl -fsSL "https://raw.githubusercontent.com/basecamp/omaterm/master/config/$1"
 }
 
+section() {
+  echo
+  echo "==> $1"
+  echo
+}
+
 OFFICIAL_PKGS=(
   base-devel git openssh sudo less inetutils whois
   starship fzf eza zoxide tmux btop jq gum tldr
@@ -31,30 +37,25 @@ AUR_PKGS=(
   claude-code
 )
 
-echo
-echo "==> Installing Arch packages..."
+section "Installing Arch packages..."
 sudo pacman -Syu --needed --noconfirm "${OFFICIAL_PKGS[@]}"
 
 if ! command -v yay &>/dev/null; then
-  echo
-  echo "==> Installing yay..."
+  section "Installing yay..."
   tmpdir=$(mktemp -d)
   git clone https://aur.archlinux.org/yay-bin.git "$tmpdir/yay"
   (cd "$tmpdir/yay" && makepkg -si --noconfirm)
   rm -rf "$tmpdir"
 fi
 
-echo
-echo "==> Installing AUR packages..."
+section "Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 
 # ─────────────────────────────────────────────
 # Git config
 # ─────────────────────────────────────────────
 if [[ ! -f $HOME/.gitconfig ]]; then
-  echo
-  echo "==> Configuring git..."
-  echo
+  section "Configuring git..."
 
   GIT_NAME=$(gum input --placeholder "Your full name" --prompt "Git name: " </dev/tty)
   GIT_EMAIL=$(gum input --placeholder "your@email.com" --prompt "Git email: " </dev/tty)
@@ -65,8 +66,7 @@ fi
 # ─────────────────────────────────────────────
 # Shell config
 # ─────────────────────────────────────────────
-echo
-echo "==> Writing configs..."
+section "Writing configs..."
 download bashrc >"$HOME/.bashrc"
 echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' >"$HOME/.bash_profile"
 
@@ -86,8 +86,7 @@ fi
 # ─────────────────────────────────────────────
 # Enable systemd services
 # ─────────────────────────────────────────────
-echo
-echo "==> Enabling services..."
+section "Enabling services..."
 sudo systemctl enable --now docker.service
 sudo systemctl enable --now sshd.service
 sudo systemctl enable --now tailscaled.service
@@ -95,9 +94,9 @@ sudo systemctl enable --now tailscaled.service
 # ─────────────────────────────────────────────
 # SSH setup
 # ─────────────────────────────────────────────
-echo
 SSH_KEYS_ADDED=false
 if [[ ! -f $HOME/.ssh/authorized_keys ]] || [[ ! -s $HOME/.ssh/authorized_keys ]]; then
+  echo
   if gum confirm "Add SSH public key(s) for remote access?" </dev/tty; then
     mkdir -p "$HOME/.ssh"
     chmod 700 "$HOME/.ssh"
@@ -158,5 +157,4 @@ if [[ $DOCKER_GROUP_ADDED == true ]]; then
   echo "NOTE: Sudoless Docker requires logging out once first."
 fi
 
-echo
-echo "Setup complete!"
+section "Setup complete!"
