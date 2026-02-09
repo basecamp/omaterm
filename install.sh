@@ -101,6 +101,13 @@ download config/nvim-colorscheme.lua >"$HOME/.config/nvim/lua/plugins/colorschem
 download config/nvim-options.lua >"$HOME/.config/nvim/lua/config/options.lua"
 echo "Wrote nvim config changes"
 
+# Btop ANSI theme
+mkdir -p "$HOME/.config/btop/themes"
+download config/btop.conf >"$HOME/.config/btop/btop.conf"
+download config/btop-ansi.theme >"$HOME/.config/btop/themes/ansi.theme"
+ln -sf "$HOME/.config/btop/themes/ansi.theme" "$HOME/.config/btop/themes/current.theme"
+echo "Wrote ~/.config/btop/btop.conf and ansi.theme"
+
 # ─────────────────────────────────────────────
 # Bins
 # ─────────────────────────────────────────────
