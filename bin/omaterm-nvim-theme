@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Set the Neovim colorscheme (takes effect on next nvim launch)
+
+THEMES=(
+  default
+  aether
+  bamboo
+  catppuccin
+  ethereal
+  everforest
+  flexoki
+  gruvbox
+  hackerman
+  kanagawa
+  matteblack
+  miasma
+  monokai-pro
+  nord
+  rose-pine
+  tokyonight
+)
+
+THEME_FILE="$HOME/.config/omaterm/nvim.theme"
+CURRENT=$(cat "$THEME_FILE" 2>/dev/null || echo "default")
+
+theme=$(gum choose --header "Neovim theme (current: $CURRENT)" "${THEMES[@]}")
+
+mkdir -p "$(dirname "$THEME_FILE")"
+echo "$theme" >"$THEME_FILE"
+echo "Neovim theme set to $theme (restart nvim to apply)"

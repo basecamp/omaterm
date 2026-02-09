@@ -95,7 +95,9 @@ if [[ ! -d $HOME/.config/nvim ]]; then
   echo "✓ LazyVim"
 fi
 
-# Use terminal ANSI colors
+# Neovim theme (change ~/.config/omaterm/nvim.theme to switch colorschemes)
+mkdir -p "$HOME/.config/omaterm"
+[[ -f "$HOME/.config/omaterm/nvim.theme" ]] || echo "default" >"$HOME/.config/omaterm/nvim.theme"
 mkdir -p "$HOME/.config/nvim/lua/plugins"
 download config/nvim-colorscheme.lua >"$HOME/.config/nvim/lua/plugins/colorscheme.lua"
 download config/nvim-options.lua >"$HOME/.config/nvim/lua/config/options.lua"
@@ -120,6 +122,9 @@ echo "✓ omaterm-ssh-key"
 
 download bin/omaterm-ts-chromium >"$HOME/.local/bin/omaterm-ts-chromium"
 echo "✓ omaterm-ts-chromium"
+
+download bin/omaterm-nvim-theme >"$HOME/.local/bin/omaterm-nvim-theme"
+echo "✓ omaterm-nvim-theme"
 
 chmod +x $HOME/.local/bin/*
 
