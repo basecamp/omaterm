@@ -21,7 +21,7 @@ zd() {
   elif [[ -d $1 ]]; then
     builtin cd "$1"
   else
-    z "$@" && printf "-> " && pwd || echo "Error: Directory not found"
+    z "$@" && printf "%s " "->" && pwd || echo "Error: Directory not found"
   fi
 }
 
