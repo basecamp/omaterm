@@ -107,6 +107,11 @@ mkdir -p "$HOME/.config/btop"
 download config/btop.conf >"$HOME/.config/btop/btop.conf"
 echo "✓ Btop"
 
+# Opencode (https://opencode.ai/)
+mkdir -p "$HOME/.config/opencode"
+download config/opencode.json >"$HOME/.config/opencode/opencode.json"
+echo "✓ Opencode"
+
 # ─────────────────────────────────────────────
 # Bins
 # ─────────────────────────────────────────────
