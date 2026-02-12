@@ -100,7 +100,8 @@ fi
 mkdir -p "$HOME/.config/omaterm"
 [[ -f "$HOME/.config/omaterm/nvim.theme" ]] || echo "tokyonight" >"$HOME/.config/omaterm/nvim.theme"
 mkdir -p "$HOME/.config/nvim/lua/plugins"
-download config/nvim-colorscheme.lua >"$HOME/.config/nvim/lua/plugins/colorscheme.lua"
+download config/nvim/plugins/colorscheme.lua >"$HOME/.config/nvim/lua/plugins/colorscheme.lua"
+download config/nvim/config/options.lua >"$HOME/.config/nvim/lua/config/options.lua"
 echo "✓ Nvim"
 
 # Btop (uses built-in TTY theme for ANSI colors)
