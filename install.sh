@@ -54,9 +54,11 @@ yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 curl -fsSL https://install.omacom.io/dots | bash
 
 section "Configuring bash..."
-cat > "$HOME/.bashrc" << 'EOF'
+cat >"$HOME/.bashrc" <<'EOF'
 source ~/.config/shell/all
-[[ -z $TMUX ]] && t
+if [[ -z $TMUX ]]; then
+  t
+fi
 EOF
 echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' >"$HOME/.bash_profile"
 echo "✓ .bashrc"
