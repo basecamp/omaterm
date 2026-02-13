@@ -51,7 +51,6 @@ yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 # ─────────────────────────────────────────────
 # Omadots
 # ─────────────────────────────────────────────
-section "Configuring omadots..."
 curl -fsSL https://install.omacom.io/dots | bash
 
 section "Configuring bash..."
