@@ -48,10 +48,22 @@ fi
 section "Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 
-# Install Omadots
+# ─────────────────────────────────────────────
+# Omadots
+# ─────────────────────────────────────────────
+section "Configuring omadots..."
 curl -fsSL https://install.omacom.io/dots | bash
 
-# Install Omaterm configs and bins
+section "Configuring bash..."
+cat >>"$HOME/.bashrc" <<'EOF'
+source ~/.config/shell/all
+[[ -z $TMUX ]] && t
+EOF
+echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' >"$HOME/.bash_profile"
+
+# ─────────────────────────────────────────────
+# Omaterm configs and bins
+# ─────────────────────────────────────────────
 REPO="https://github.com/omacom-io/omaterm.git"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -66,21 +78,8 @@ cp -Rf "$TMPDIR/bin/"* "$HOME/.local/bin/"
 chmod +x "$HOME/.local/bin/*"
 
 # ─────────────────────────────────────────────
-# Omadots
-# ─────────────────────────────────────────────
-curl -fsSL https://install.omacom.io/dots | bash
-
-section "Configure bash..."
-echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' >"$HOME/.bash_profile"
-cat >>"$HOME/.bashrc" <<'EOF'
-source ~/.config/shell/all
-[[ -z $TMUX ]] && t
-EOF
-
-# ─────────────────────────────────────────────
 # Mise tooling
 # ─────────────────────────────────────────────
-
 section "Installing Ruby + Node..."
 mise use -g node
 mise use -g ruby
