@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Reinstalls Omaterm with missing packages and default configs.
-
-if gum confirm "Reinstall Omaterm (including overwriting configs)?"; then
-  curl -fsSL https://omaterm.org/install | bash
-fi

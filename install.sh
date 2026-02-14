@@ -27,7 +27,6 @@ OFFICIAL_PKGS=(
   github-cli lazygit lazydocker opencode
   docker docker-buildx docker-compose
   tailscale
-  chromium
 )
 
 AUR_PKGS=(
@@ -73,12 +72,18 @@ trap 'rm -rf "$TMPDIR"' EXIT
 section "Cloning Omaterm..."
 git clone --depth 1 "$REPO" "$TMPDIR"
 
-section "Installing config and bin..."
+section "Installing configs..."
 mkdir -p "$HOME/.config"
 cp -Rf "$TMPDIR/config/"* "$HOME/.config/"
+echo "✓ Neovim"
+echo "✓ Starship"
+
+section "Installing bins..."
 mkdir -p "$HOME/.local/bin"
 cp -Rf "$TMPDIR/bin/"* "$HOME/.local/bin/"
 chmod +x "$HOME/.local/bin/"*
+echo "✓ omarchy-ssh"
+echo "✓ omarchy-theme"
 
 # ─────────────────────────────────────────────
 # Mise tooling
